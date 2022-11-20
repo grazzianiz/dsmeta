@@ -1,5 +1,7 @@
 package com.zambon.dsmeta.services;
 
+import java.text.DecimalFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,7 @@ public class SmsService {
 		Sale sale = saleRepository.findById(_saleId).get();
 		String date = sale.getDate().getMonthValue() + "/" + sale.getDate().getYear();
 		String msg = "O(A) vendedor(a) " + sale.getSellerName() + " foi destaque em " + date + 
-				" com um total de R$ " + String.format("%.0f", sale.getAmount());
+				" com um total de R$ " + new DecimalFormat("#,##0.00").format(sale.getAmount());
 		
 		Twilio.init(twilioSid, twilioKey);
 		
